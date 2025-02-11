@@ -5,9 +5,8 @@ import com.musinsa.homework.jpa.entities.product.Product
 import io.hypersistence.utils.hibernate.id.Tsid
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
-import jakarta.persistence.FetchType
 import jakarta.persistence.Id
-import jakarta.persistence.OneToMany
+import jakarta.persistence.Table
 import java.time.LocalDateTime
 
 /**
@@ -15,7 +14,6 @@ import java.time.LocalDateTime
  *
  * @property id 카테고리 정보 ID (PK, TSID)
  * @property name 카테고리 이름
- * @property products 제품 리스트
  * @property createdAt 최초작성시각
  * @property createdBy 최초작성자
  * @property updatedAt 최종수정시각
@@ -25,7 +23,8 @@ import java.time.LocalDateTime
  * @see Product
  */
 @Entity
-class Category(): AuditEntity() {
+@Table(name = "category")
+class Category() : AuditEntity() {
 
   @Id
   @Tsid
@@ -34,13 +33,6 @@ class Category(): AuditEntity() {
 
   @Column(name = "category_name", nullable = false)
   lateinit var name: String
-
-  @OneToMany(
-    mappedBy = "product",
-    fetch = FetchType.LAZY,
-    orphanRemoval = true,
-  )
-  lateinit var products: MutableList<Product>
 
   companion object {
 
