@@ -8,6 +8,7 @@ import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
 import jakarta.persistence.Id
 import jakarta.persistence.OneToMany
+import jakarta.persistence.Table
 import java.time.LocalDateTime
 
 /**
@@ -15,7 +16,6 @@ import java.time.LocalDateTime
  *
  * @property id 브랜드 정보 ID (PK, TSID)
  * @property name 브랜드 이름
- * @property products 제품 리스트
  * @property createdAt 최초작성시각
  * @property createdBy 최초작성자
  * @property updatedAt 최종수정시각
@@ -25,6 +25,7 @@ import java.time.LocalDateTime
  * @see Product
  */
 @Entity
+@Table(name = "brand")
 class Brand() : AuditEntity() {
 
   @Id
@@ -35,16 +36,9 @@ class Brand() : AuditEntity() {
   @Column(name = "brand_name", nullable = false)
   lateinit var name: String
 
-  @OneToMany(
-    mappedBy = "product",
-    fetch = FetchType.LAZY,
-    orphanRemoval = true,
-  )
-  lateinit var products: MutableList<Product>
-
   companion object {
 
-      /**
+    /**
      * 새로운 브랜드 엔티티를 생성합니다.
      *
      * @param brandName 브랜드 이름
@@ -56,7 +50,6 @@ class Brand() : AuditEntity() {
       val now = LocalDateTime.now()
       val newEntity = Brand()
       newEntity.name = brandName
-      newEntity.products = mutableListOf<Product>()
       newEntity.createdBy = requester
       newEntity.createdAt = now
       newEntity.updatedBy = requester
