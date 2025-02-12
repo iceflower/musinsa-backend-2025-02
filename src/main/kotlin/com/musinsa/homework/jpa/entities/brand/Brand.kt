@@ -1,13 +1,12 @@
 package com.musinsa.homework.jpa.entities.brand
 
+import com.musinsa.homework.jpa.entities.brand.vo.BrandInfo
 import com.musinsa.homework.jpa.entities.common.AuditEntity
 import com.musinsa.homework.jpa.entities.product.Product
 import io.hypersistence.utils.hibernate.id.Tsid
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
-import jakarta.persistence.FetchType
 import jakarta.persistence.Id
-import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
 import java.time.LocalDateTime
 
@@ -70,4 +69,11 @@ class Brand() : AuditEntity() {
     this.updatedBy = requester
     this.updatedAt = LocalDateTime.now()
   }
+
+  /**
+   * 브랜드 정보 객체를 생성하여 돌려줍니다.
+   *
+   * @return 브랜드 정보 객체
+   */
+  fun toVo() = BrandInfo(id!!, name)
 }
