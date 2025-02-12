@@ -1,7 +1,5 @@
-package com.musinsa.homework.components.price
+package com.musinsa.homework.components.lowprice.bybrand
 
-import com.musinsa.homework.components.price.statement.LowPriceBrandStatement
-import com.musinsa.homework.components.price.statement.ProductStatement
 import com.musinsa.homework.jpa.entities.brand.BrandRepository
 import com.musinsa.homework.jpa.entities.product.ProductRepository
 import com.musinsa.homework.util.lock.distributed.RedisDistributedLock
