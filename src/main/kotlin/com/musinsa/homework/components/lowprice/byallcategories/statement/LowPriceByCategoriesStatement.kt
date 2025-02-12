@@ -1,4 +1,4 @@
-package com.musinsa.homework.components.price.statement
+package com.musinsa.homework.components.lowprice.byallcategories.statement
 
 import com.musinsa.homework.jpa.entities.category.vo.LowPriceByCategory
 

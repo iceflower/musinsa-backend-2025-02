@@ -1,4 +1,4 @@
-package com.musinsa.homework.components.price
+package com.musinsa.homework.components.lowprice.bybrand
 
 import com.linecorp.kotlinjdsl.support.spring.data.jpa.autoconfigure.KotlinJdslAutoConfiguration
 import com.musinsa.homework.jpa.entities.brand.BrandRepository
@@ -6,6 +6,7 @@ import com.musinsa.homework.jpa.entities.product.ProductRepository
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
@@ -13,9 +14,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.context.annotation.Import
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.TestPropertySource
-import kotlin.test.Test
 import kotlin.test.assertTrue
-
 
 @ActiveProfiles("test")
 @TestPropertySource(locations = ["classpath:application-test.yml"])
@@ -27,6 +26,7 @@ class LowestPriceBrandInformantTest {
 
   @Autowired
   lateinit var brandRepository: BrandRepository
+
   @Autowired
   lateinit var productRepository: ProductRepository
 

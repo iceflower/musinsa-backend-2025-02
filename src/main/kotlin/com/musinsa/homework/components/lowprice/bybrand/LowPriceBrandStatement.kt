@@ -1,4 +1,4 @@
-package com.musinsa.homework.components.price.statement
+package com.musinsa.homework.components.lowprice.bybrand
 
 /**
  * 특정 브랜드의 제품만 구매했을 때, 최저가로 구매 가능한 브랜드 및 그 브랜드의 제품 정보 명세서 객체.
