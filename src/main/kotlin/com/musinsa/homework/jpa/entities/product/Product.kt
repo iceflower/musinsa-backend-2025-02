@@ -60,9 +60,6 @@ class Product() : AuditEntity() {
   )
   lateinit var category: Category
 
-  val brandId get() = brand.id
-  val categoryId get() = category.id
-
   companion object {
 
     /**
