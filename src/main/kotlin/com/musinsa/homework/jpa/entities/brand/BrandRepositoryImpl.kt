@@ -3,6 +3,8 @@ package com.musinsa.homework.jpa.entities.brand
 import com.linecorp.kotlinjdsl.support.spring.data.jpa.repository.KotlinJdslJpqlExecutor
 import com.musinsa.homework.jpa.entities.brand.vo.BrandInfo
 import com.musinsa.homework.jpa.entities.product.Product
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
 
 class BrandRepositoryImpl(
   private val kotlinJdslJpqlExecutor: KotlinJdslJpqlExecutor,
@@ -22,4 +24,18 @@ class BrandRepositoryImpl(
       )
     }.first()!!
   }
+
+  override fun getAllPagedList(pageRequest: PageRequest) = kotlinJdslJpqlExecutor.findPage(pageRequest) {
+    selectNew<BrandInfo>(
+      path(Brand::id),
+      path(Brand::name),
+    ).from(
+      entity(Brand::class),
+      join(entity(Product::class)).on(path(Product::brand).eq(entity(Brand::class)))
+    ).orderBy(
+      path(Brand::id).asc()
+    )
+  }.filterNotNull()
+
+
 }
