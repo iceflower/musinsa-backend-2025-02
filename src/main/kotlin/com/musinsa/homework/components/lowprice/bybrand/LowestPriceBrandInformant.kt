@@ -1,5 +1,6 @@
 package com.musinsa.homework.components.lowprice.bybrand
 
+import com.musinsa.homework.components.product.command.ProductInfoListQueryCommand
 import com.musinsa.homework.jpa.entities.brand.BrandRepository
 import com.musinsa.homework.jpa.entities.product.ProductRepository
 import com.musinsa.homework.util.lock.distributed.RedisDistributedLock
@@ -19,7 +20,12 @@ class LowestPriceBrandInformant(
   @RedisDistributedLock(key = "get-lowest-price-brand", readOnly = true)
   fun getLowPriceBrandInfo(): LowPriceBrandStatement {
     val brandInfo = brandRepository.findLowPriceBrandName()
-    val productStatements = productRepository.findAllByBrandId(brandInfo.id)
+
+    val command = ProductInfoListQueryCommand(
+      brandInfo.id, null, null, null,
+    )
+
+    val productStatements = productRepository.findAllByQueryCommand(command)
       .map { ProductStatement(it.categoryName, it.productPrice) }
     return LowPriceBrandStatement(brandInfo.name, productStatements)
   }

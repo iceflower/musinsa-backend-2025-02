@@ -34,6 +34,7 @@ class Category() : AuditEntity() {
   @Column(name = "category_name", nullable = false)
   lateinit var name: String
 
+
   companion object {
 
     /**

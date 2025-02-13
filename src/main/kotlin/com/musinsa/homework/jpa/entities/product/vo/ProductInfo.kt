@@ -14,5 +14,7 @@ data class ProductInfo(
   val productName: String,
   val categoryId: String,
   val categoryName: String,
+  val brandId: String,
+  val brandName: String,
   val productPrice: Long
 )
