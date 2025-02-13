@@ -3,13 +3,16 @@ package com.musinsa.homework.jpa.entities.product
 import com.musinsa.homework.jpa.entities.brand.Brand
 import com.musinsa.homework.jpa.entities.category.Category
 import com.musinsa.homework.jpa.entities.common.AuditEntity
+import com.musinsa.homework.jpa.entities.product.vo.ProductInfo
 import io.hypersistence.utils.hibernate.id.Tsid
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
+import org.hibernate.annotations.DynamicUpdate
 import java.time.LocalDateTime
 
 /**
@@ -31,6 +34,7 @@ import java.time.LocalDateTime
  */
 @Entity
 @Table(name = "product")
+@DynamicUpdate
 class Product() : AuditEntity() {
 
   @Id
@@ -44,19 +48,25 @@ class Product() : AuditEntity() {
   @Column(name = "product_price", nullable = false)
   var price: Long = 0
 
-  @ManyToOne
+  @ManyToOne(
+    fetch = FetchType.LAZY,
+    targetEntity = Brand::class
+  )
   @JoinColumn(
     name = "brand_id",
     referencedColumnName = "brand_id",
-    nullable = false
+    nullable = false,
   )
   lateinit var brand: Brand
 
-  @ManyToOne
+  @ManyToOne(
+    fetch = FetchType.LAZY,
+    targetEntity = Category::class,
+  )
   @JoinColumn(
     name = "category_id",
     referencedColumnName = "category_id",
-    nullable = false
+    nullable = false,
   )
   lateinit var category: Category
 
@@ -102,6 +112,11 @@ class Product() : AuditEntity() {
    * @param requester 변경 요청자
    */
   fun editProductName(productName: String, requester: String) {
+
+    if (this.name == productName) {
+      return
+    }
+
     this.name = productName
     this.updatedBy = requester
     this.updatedAt = LocalDateTime.now()
@@ -114,6 +129,11 @@ class Product() : AuditEntity() {
    * @param requester 변경 요청자
    */
   fun editProductPrice(productPrice: Long, requester: String) {
+
+    if (this.price == productPrice) {
+      return
+    }
+
     this.price = productPrice
     this.updatedBy = requester
     this.updatedAt = LocalDateTime.now()
@@ -126,6 +146,11 @@ class Product() : AuditEntity() {
    * @param requester 변경 요청자
    */
   fun editProductBrand(productBrand: Brand, requester: String) {
+
+    if (this.brand.id == productBrand.id) {
+      return
+    }
+
     this.brand = productBrand
     this.updatedBy = requester
     this.updatedAt = LocalDateTime.now()
@@ -138,8 +163,28 @@ class Product() : AuditEntity() {
    * @param requester 변경 요청자
    */
   fun editProductCategory(productCategory: Category, requester: String) {
+
+    if (this.category.id == productCategory.id) {
+      return
+    }
+
     this.category = productCategory
     this.updatedBy = requester
     this.updatedAt = LocalDateTime.now()
   }
+
+  /**
+   * 제품 정보 객체로 변환하여 돌려줍니다.
+   *
+   * @return 제품 정보 객체
+   */
+  fun toVo() = ProductInfo(
+    id!!,
+    name,
+    category.id!!,
+    category.name,
+    brand.id!!,
+    brand.name,
+    price
+  )
 }
