@@ -1,6 +1,6 @@
 package com.musinsa.homework.components.lowprice.byallcategories.statement
 
-import com.musinsa.homework.jpa.entities.category.vo.LowPriceByCategory
+import com.musinsa.homework.jpa.entities.category.vo.PriceByCategory
 
 /**
  * 카테고리별 최저가 상품 브랜드 명세서 객체.
@@ -10,7 +10,7 @@ import com.musinsa.homework.jpa.entities.category.vo.LowPriceByCategory
  */
 data class LowPriceByCategoriesStatement(
   val totalPrice: Long,
-  val detailed: List<LowPriceByCategory>
+  val detailed: List<PriceByCategory>
 ) {
 
   companion object {
@@ -21,7 +21,7 @@ data class LowPriceByCategoriesStatement(
      * @param list 카테고리별 최저가 상품 리스트
      * @return LowPriceByCategoriesStatement
      */
-    fun create(list: List<LowPriceByCategory>): LowPriceByCategoriesStatement {
+    fun create(list: List<PriceByCategory>): LowPriceByCategoriesStatement {
 
       val totalPrice = list.distinctBy { it.categoryName }
         .sumOf { it.price }
