@@ -8,6 +8,22 @@ import com.musinsa.homework.jpa.entities.product.vo.ProductInfo
 class ProductRepositoryImpl(
   private val kotlinJdslJpqlExecutor: KotlinJdslJpqlExecutor,
 ): ProductRepositoryCustom {
+
+  override fun existsByBrandId(brandId: String): Boolean {
+    val count = kotlinJdslJpqlExecutor.findAll {
+      selectNew<Long>(
+        count(path(Product::id)),
+      ).from(
+        entity(Product::class),
+        join(entity(Brand::class)).on(path(Product::brand).eq(entity(Brand::class))),
+      ).where(
+        path(Brand::id).eq(brandId)
+      )
+    }.first()!!
+
+    return count > 0
+  }
+
   override fun findAllByBrandId(brandId: String): List<ProductInfo> {
     return kotlinJdslJpqlExecutor.findAll {
       selectNew<ProductInfo>(
@@ -22,8 +38,9 @@ class ProductRepositoryImpl(
         join(entity(Brand::class)).on(path(Product::brand).eq(entity(Brand::class))),
       ).where(
         path(Brand::id).eq(brandId)
+      ).orderBy(
+        path(Product::name).asc()
       )
-
     }.filterNotNull()
   }
 }
