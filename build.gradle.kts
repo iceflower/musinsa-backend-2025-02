@@ -25,6 +25,7 @@ extra.apply {
   set("coroutines-core-version", "1.10.1")
   set("redisson-spring-boot-starter-version", "3.44.0")
   set("kotlin-jdsl-version", "3.5.4")
+  set("springdoc-openapi-starter-webmvc-ui-version", "2.8.4")
 }
 
 val coroutineCoreVersion = rootProject.extra["coroutines-core-version"]
@@ -32,6 +33,7 @@ val testcontainersVersion = rootProject.extra["testcontainers-version"]
 val redissonSpringBootStarterVersion = rootProject.extra["redisson-spring-boot-starter-version"]
 val hypersistenceUtilsHibernateVersion = rootProject.extra["hypersistence-utils-hibernate-version"]
 val kotlinJdslVersion = rootProject.extra["kotlin-jdsl-version"]
+val springdocOpenapiSterterWebmvcUiVersion = rootProject.extra["springdoc-openapi-starter-webmvc-ui-version"]
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter-actuator")
   implementation("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -49,6 +51,9 @@ dependencies {
   implementation("com.linecorp.kotlin-jdsl:jpql-dsl:$kotlinJdslVersion")
   implementation("com.linecorp.kotlin-jdsl:jpql-render:$kotlinJdslVersion")
   implementation("com.linecorp.kotlin-jdsl:spring-data-jpa-support:$kotlinJdslVersion")
+
+  implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiSterterWebmvcUiVersion")
+
 
   runtimeOnly("com.h2database:h2")
 

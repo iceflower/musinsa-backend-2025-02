@@ -1,0 +1,179 @@
+openapi: 3.0.3
+info:
+  title: 가격정보 API 명세서
+  description: |-
+    - 무신사 과제전형 제출용 백엔드 서버의 가격 정보 관련 API 명세서입니다.
+  contact:
+    email: iceflower01@gmail.com
+  version: 0.0.1 SNAPSHOT
+
+servers:
+  - url: https://localhost:8080
+tags:
+  - name: 가격 정보 API
+    description: 브랜드 및 카테고리별 가격 정보 조회용 API
+
+paths:
+  "/v1/api/price/lowest-by-cagegories-list":
+    get:
+      tags:
+        - 가격 정보 API
+      summary: 카테고리별 최저가 브랜드 및 가격 조회
+      description: 카테고리별 최저가 브랜드 및 가격을 조회합니다. 브랜드별 제품 종류 및 가격에 따라 카테고리별 2개 이상의 가격 정보가 조회될 수 있습니다.
+      operationId: getLowestByCategoriesList
+      responses:
+        '200':
+          description: 작업 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LowPriceByCategoriesInfo'
+  "/v1/api/price/lowest-by-cagegory-list/when-choosing-a-single-brand":
+    get:
+      tags:
+        - 가격 정보 API
+      summary: 단일 브랜드 선택시, 최저가로 구매 가능한 카테고리별 가격 리스트 조회
+      description: 단일 브랜드 선택시, 최저가로 구매 가능한 카테고리별 가격 리스트를 조회합니다. 브랜드별 제품 종류 및 가격에 따라 카테고리별 2개 이상의 가격 정보가 조회될 수 있습니다.
+      operationId: getLowestByCategoriesWhenChoosingASingleBrand
+      responses:
+        '200':
+          description: 작업 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LowPriceBrandInfo'
+  /v1/api/price/lowest-and-highest-info/of-category/{categoryName}:
+    get:
+      tags:
+        - 가격 정보 API
+      summary: 카테고리별 최저가 상품과 최고가 상품 조회
+      description: 카테고리 이름이 주어지면, 최저가 상품과 최고가 상품을 조회하여 돌려줍니다.
+      operationId: getLowestPriceAndHighestPriceProductsOfCategory
+      parameters:
+        - name: categoryName
+          in: path
+          description: 카테고리 이름
+          required: true
+          schema:
+            type: string
+            example: 상의
+      responses:
+        '200':
+          description: 작업 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LowestAndHighestPriceProductsByCategoryResponse'
+        '422':
+          description: 카테고리 정보를 찾지 못했을 경우
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+
+components:
+  schemas:
+    LowPriceByCategoriesInfo:
+      type: object
+      description: 카테고리별 최저가 브랜드 및 가격 정보 응답 객체
+      properties:
+        totalPrice:
+          type: integer
+          format: int64
+          description: 카테고리별 최저가 브랜드 및 리스트에 포함된 가격 합계 (카테고리별 최저가 브랜드 갯수가 2개 이상인 경우, 1개 가격만 합산합니다.)
+          example: 150000
+        detailed:
+          type: array
+          description: 카테고리별 최저가 브랜드 및 리스트 (카테고리별 2개 이상의 브랜드 정보가 포함될 수 있습니다.)
+          items:
+            type: object
+            properties:
+              categoryName:
+                type: string
+                description: 카테고리명
+                example: 상의
+              brandName:
+                type: string
+                description: 브랜드명
+                example: A
+              price:
+                type: integer
+                format: int64
+                description: 제품가격
+                example: 9500
+    LowPriceBrandInfo:
+      type: object
+      description: 단일 브랜드 제품만 선택시, 최저가로 구매 가능한 카테고리별 가격 정보 객체
+      properties:
+        lowestPrice:
+          type: object
+          description: 최저가로 구매 가능한 브랜드의 카테고리별 가격 정보 객체
+          properties:
+            brandName:
+              type: string
+              description: 브랜드명
+              example: A
+            totalPrice:
+              type: integer
+              format: int64
+              description: 제품 가격 합계 (카테고리별 2개 이상의 제품이 존재할 수 있으나, 가격 합산시엔 카테고리별로 한개씩만 골라 합산합니다.)
+              example: 110000
+            products:
+              type: array
+              description: 제품 및 가격 리스트
+              items:
+                properties:
+                  categoryName:
+                    type: string
+                    description: 카테고리 이름
+                    example: 상의
+                  price:
+                    type: integer
+                    format: int64
+                    description: 제품가격
+                    example: 5000
+    LowestAndHighestPriceProductsByCategoryResponse:
+      type: object
+      description: 카테고리별 최저가/최고가 제품 정보
+      properties:
+        categoryName:
+          type: string
+          description: 카테고리 이름
+          example: 상의
+        lowestPriceList:
+          type: array
+          description: 최저가 상품 리스트
+          items:
+            properties:
+              brandName:
+                type: string
+                description: 브랜드명
+              price:
+                type: string
+                description: 제품가격
+        highestPriceList:
+          type: array
+          description: 최고가 상품 리스트
+          items:
+            properties:
+              brandName:
+                type: string
+                description: 브랜드명
+              price:
+                type: string
+                description: 제품가격
+
+
+    ErrorResponse:
+      type: object
+      description: 오류 응답용 객체
+      properties:
+        code:
+          type: string
+          description: 오류코드 (영문 대문자와 언더바로 이루어진 문자열)
+          example: ERROR_CODE
+        message:
+          type: string
+          description: 오류 메시지 (한국어 문자열)
+          example: 이러저러한 오류가 발생하였습니다.

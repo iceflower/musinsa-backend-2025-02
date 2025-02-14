@@ -16,14 +16,16 @@ class HighestPriceByEachCategoriesInformant(
    *
    * @param categoryName 조회대상 카테고리 이름
    * @return 조회대상 카테고리 내, 최고가  제품 정보
+   *
+   * @throws CategoryNotFoundException 카테고리 정보를 찾을 수 없을 경우
    */
   @RedisDistributedLock(key = "get-highest-price-by-category", readOnly = true)
-  fun getHighestPriceByEachCategory(categoryName: String): PriceByCategory {
+  fun getHighestPriceByEachCategory(categoryName: String): List<PriceByCategory> {
 
     if (!categoryRepository.existsByName(categoryName)) {
       throw CategoryNotFoundException("카테고리를 찾을 수 없습니다.")
     }
 
-    return categoryRepository.highestPriceByEachCategory(categoryName)!!
+    return categoryRepository.highestPriceByEachCategory(categoryName)
   }
 }

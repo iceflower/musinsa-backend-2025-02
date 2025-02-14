@@ -37,8 +37,8 @@ class CategoryRepositoryImpl(
     }
   }
 
-  override fun lowestPriceByEachCategory(name: String): PriceByCategory? {
-    return jdbcTemplate.queryForObject(
+  override fun lowestPriceByEachCategory(name: String): List<PriceByCategory> {
+    return jdbcTemplate.query(
       """
         SELECT 
             c.category_name,
@@ -66,8 +66,8 @@ class CategoryRepositoryImpl(
     }
   }
 
-  override fun highestPriceByEachCategory(name: String): PriceByCategory? {
-    return jdbcTemplate.queryForObject(
+  override fun highestPriceByEachCategory(name: String): List<PriceByCategory> {
+    return jdbcTemplate.query(
       """
       SELECT 
           c.category_name,

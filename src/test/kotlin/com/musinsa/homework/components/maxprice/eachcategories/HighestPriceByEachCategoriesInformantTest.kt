@@ -61,9 +61,13 @@ class HighestPriceByEachCategoriesInformantTest {
       @DisplayName("아무런 예외를 던지지 않고 결과를 돌려준다")
       fun it_returns_successfully() {
         val result = assertDoesNotThrow { subject("상의") }
-        assertTrue { result.categoryName.isNotEmpty() }
-        assertTrue { result.brandName.isNotEmpty() }
-        assertTrue { result.price > 0 }
+
+        assertTrue { result.isNotEmpty() }
+        result.forEach {
+          assertTrue { it.categoryName.isNotEmpty() }
+          assertTrue { it.brandName.isNotEmpty() }
+          assertTrue { it.price > 0 }
+        }
       }
     }
   }
