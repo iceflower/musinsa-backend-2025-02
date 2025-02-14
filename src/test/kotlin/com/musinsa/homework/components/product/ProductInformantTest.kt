@@ -4,6 +4,8 @@ import com.linecorp.kotlinjdsl.support.spring.data.jpa.autoconfigure.KotlinJdslA
 import com.musinsa.homework.components.exception.ProductNotFoundException
 import com.musinsa.homework.components.product.command.ProductInfoListQueryCommand
 import com.musinsa.homework.jpa.entities.product.ProductRepository
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -19,8 +21,6 @@ import org.springframework.context.annotation.Import
 import org.springframework.data.domain.PageRequest
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.TestPropertySource
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
 
 
 @ActiveProfiles("test")

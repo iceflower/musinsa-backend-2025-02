@@ -87,7 +87,7 @@ class BrandInfoRemoverTest {
       @DisplayName("아무런 예외를 던지지 않고, 삭제 작업을 진행한다")
       fun it_runs_successfully() {
         val brandId = givenBrandId()
-        assertDoesNotThrow {  subject(BrandInfoRemoveCommand(brandId, "test")) }
+        assertDoesNotThrow { subject(BrandInfoRemoveCommand(brandId, "test")) }
       }
     }
   }

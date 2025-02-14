@@ -1,9 +1,9 @@
 package com.musinsa.homework.util.dispatcher
 
+import java.util.concurrent.Executors
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asCoroutineDispatcher
-import java.util.concurrent.Executors
 
 /**
  * Java21부터 정식 기능으로 추가된 버추얼 스레드 기능을, 코루틴에서 사용하기 위한 코드입니다.

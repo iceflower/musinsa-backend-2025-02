@@ -3,6 +3,7 @@ package com.musinsa.homework.components.lowprice.bybrand
 import com.linecorp.kotlinjdsl.support.spring.data.jpa.autoconfigure.KotlinJdslAutoConfiguration
 import com.musinsa.homework.jpa.entities.brand.BrandRepository
 import com.musinsa.homework.jpa.entities.product.ProductRepository
+import kotlin.test.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -14,7 +15,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.context.annotation.Import
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.TestPropertySource
-import kotlin.test.assertTrue
 
 @ActiveProfiles("test")
 @TestPropertySource(locations = ["classpath:application-test.yml"])
@@ -51,11 +51,9 @@ class LowestPriceBrandInformantTest {
       fun it_returns_value() {
 
         val result = assertDoesNotThrow { subject() }
-
-        assertTrue { result.brandProductsByCategories.isNotEmpty() }
-        assertTrue { result.brandName.isNotEmpty() }
-        assertTrue { result.totalPrice > 0 }
-
+        assertTrue { result.lowestPrice.products.isNotEmpty() }
+        assertTrue { result.lowestPrice.brandName.isNotEmpty() }
+        assertTrue { result.lowestPrice.totalPrice > 0 }
       }
     }
   }

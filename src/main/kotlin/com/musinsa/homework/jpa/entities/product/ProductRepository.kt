@@ -2,16 +2,15 @@ package com.musinsa.homework.jpa.entities.product
 
 import com.musinsa.homework.components.product.command.ProductInfoListQueryCommand
 import com.musinsa.homework.jpa.entities.product.vo.ProductInfo
+import java.util.Optional
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.jpa.repository.EntityGraph
 import org.springframework.data.jpa.repository.JpaRepository
-import java.util.Optional
 
 interface ProductRepository : JpaRepository<Product, String>, ProductRepositoryCustom {
 
   @EntityGraph(attributePaths = ["brand", "category"])
   override fun findById(id: String): Optional<Product>
-
 }
 
 interface ProductRepositoryCustom {

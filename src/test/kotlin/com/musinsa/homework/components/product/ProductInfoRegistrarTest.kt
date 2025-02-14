@@ -7,6 +7,8 @@ import com.musinsa.homework.components.product.command.ProductInfoRegisterComman
 import com.musinsa.homework.jpa.entities.brand.BrandRepository
 import com.musinsa.homework.jpa.entities.category.CategoryRepository
 import com.musinsa.homework.jpa.entities.product.ProductRepository
+import kotlin.test.Test
+import kotlin.test.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -19,8 +21,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.context.annotation.Import
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.TestPropertySource
-import kotlin.test.Test
-import kotlin.test.assertEquals
 
 @ActiveProfiles("test")
 @TestPropertySource(locations = ["classpath:application-test.yml"])
