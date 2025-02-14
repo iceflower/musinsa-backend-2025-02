@@ -16,14 +16,15 @@ class LowestPriceByEachCategoriesInformant(
    *
    * @param categoryName 조회대상 카테고리 이름
    * @return 조회대상 카테고리 내, 최저가 제품 정보
+   * @throws CategoryNotFoundException 카테고리 정보를 찾을 수 없을 경우
    */
   @RedisDistributedLock(key = "get-lowest-price-by-category", readOnly = true)
-  fun getLowestPriceByEachCategory(categoryName: String): PriceByCategory {
+  fun getLowestPriceByEachCategory(categoryName: String): List<PriceByCategory> {
 
     if (!categoryRepository.existsByName(categoryName)) {
       throw CategoryNotFoundException("카테고리를 찾을 수 없습니다.")
     }
 
-    return categoryRepository.lowestPriceByEachCategory(categoryName)!!
+    return categoryRepository.lowestPriceByEachCategory(categoryName)
   }
 }

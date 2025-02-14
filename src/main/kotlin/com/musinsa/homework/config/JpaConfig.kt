@@ -9,7 +9,7 @@ import org.springframework.transaction.PlatformTransactionManager
 import org.springframework.transaction.annotation.EnableTransactionManagement
 
 @Configuration
-@EnableJpaRepositories
+@EnableJpaRepositories(basePackages = ["com.musinsa.homework.jpa.entities"])
 @EnableTransactionManagement
 class JpaConfig {
 

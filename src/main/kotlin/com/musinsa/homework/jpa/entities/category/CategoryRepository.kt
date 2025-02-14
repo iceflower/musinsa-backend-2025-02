@@ -28,7 +28,7 @@ interface CategoryRepositoryCustom {
    * @param name 조회대상 카테고리의 이름
    * @return 조회대상 카테고리 내 최저가 제품의 브랜드 및 가격 정보
    */
-  fun lowestPriceByEachCategory(name: String): PriceByCategory?
+  fun lowestPriceByEachCategory(name: String): List<PriceByCategory>
 
   /**
    * 카테고리 이름이 주어지면, 그 카테고리의 제품 중 최고가 제품 정보를 조회하여 돌려줍니다.
@@ -36,5 +36,5 @@ interface CategoryRepositoryCustom {
    * @param name 조회대상 카테고리의 이름
    * @return 조회대상 카테고리 내 최고가 제품의 브랜드 및 가격 정보
    */
-  fun highestPriceByEachCategory(name: String): PriceByCategory?
+  fun highestPriceByEachCategory(name: String): List<PriceByCategory>
 }
