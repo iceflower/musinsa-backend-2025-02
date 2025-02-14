@@ -153,7 +153,7 @@ paths:
         - 브랜드 정보 API
       summary: 개별 브랜드 정보 삭제
       description: DB에 저장된 개별 브랜드 정보를 삭제한 후 그 결과를 돌려줍니다.
-      operationId: correctBrandInfo
+      operationId: removeBrandInfo
       parameters:
         - name: brandId
           in: path

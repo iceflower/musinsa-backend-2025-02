@@ -23,7 +23,7 @@ class BadRequestExceptionHandler {
 
     val detailInfo = e.fieldErrors.map {
       DetailInfo(
-        it.rejectedValue!!,
+        it.rejectedValue,
         it.defaultMessage!!
       )
     }

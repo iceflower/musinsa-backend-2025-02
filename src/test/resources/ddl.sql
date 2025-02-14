@@ -1,3 +1,8 @@
+DROP TABLE IF EXISTS product;
+DROP TABLE IF EXISTS category;
+DROP TABLE IF EXISTS brand;
+
+
 CREATE TABLE brand
 (
   brand_id   VARCHAR(13)  NOT NULL,
