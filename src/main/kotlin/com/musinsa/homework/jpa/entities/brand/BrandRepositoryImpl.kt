@@ -3,7 +3,6 @@ package com.musinsa.homework.jpa.entities.brand
 import com.linecorp.kotlinjdsl.support.spring.data.jpa.repository.KotlinJdslJpqlExecutor
 import com.musinsa.homework.jpa.entities.brand.vo.BrandInfo
 import com.musinsa.homework.jpa.entities.product.Product
-import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 
 class BrandRepositoryImpl(
@@ -36,6 +35,4 @@ class BrandRepositoryImpl(
       path(Brand::id).asc()
     )
   }.filterNotNull()
-
-
 }

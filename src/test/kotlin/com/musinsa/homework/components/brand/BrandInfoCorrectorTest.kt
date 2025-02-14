@@ -4,6 +4,10 @@ import com.linecorp.kotlinjdsl.support.spring.data.jpa.autoconfigure.KotlinJdslA
 import com.musinsa.homework.components.brand.command.BrandInfoCorrectCommand
 import com.musinsa.homework.components.exception.BrandNotFoundException
 import com.musinsa.homework.jpa.entities.brand.BrandRepository
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
+import kotlin.test.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -15,10 +19,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.context.annotation.Import
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.TestPropertySource
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertNotEquals
-import kotlin.test.assertTrue
 
 @ActiveProfiles("test")
 @TestPropertySource(locations = ["classpath:application-test.yml"])

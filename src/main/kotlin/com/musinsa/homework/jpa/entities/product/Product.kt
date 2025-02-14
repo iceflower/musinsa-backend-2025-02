@@ -12,8 +12,8 @@ import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
-import org.hibernate.annotations.DynamicUpdate
 import java.time.LocalDateTime
+import org.hibernate.annotations.DynamicUpdate
 
 /**
  * 제품 정보 엔티티.
