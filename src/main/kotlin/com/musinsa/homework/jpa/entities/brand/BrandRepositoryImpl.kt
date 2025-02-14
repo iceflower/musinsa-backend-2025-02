@@ -30,7 +30,6 @@ class BrandRepositoryImpl(
       path(Brand::name),
     ).from(
       entity(Brand::class),
-      join(entity(Product::class)).on(path(Product::brand).eq(entity(Brand::class)))
     ).orderBy(
       path(Brand::id).asc()
     )

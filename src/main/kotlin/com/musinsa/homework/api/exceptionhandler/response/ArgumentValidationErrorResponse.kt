@@ -20,6 +20,6 @@ data class ArgumentValidationErrorResponse(
  * @property message 오류메시지
  */
 data class DetailInfo(
-  val value: Any,
+  val value: Any?,
   val message: String
 )

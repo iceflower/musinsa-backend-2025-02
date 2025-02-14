@@ -3,7 +3,6 @@ package com.musinsa.homework.api.brand
 import com.musinsa.homework.api.brand.request.BrandInfoCorrectRequest
 import com.musinsa.homework.api.brand.request.BrandInfoRegisterRequest
 import com.musinsa.homework.api.brand.request.BrandInfoRemoveRequest
-import com.musinsa.homework.api.brand.response.BrandInfoResponse
 import com.musinsa.homework.components.brand.BrandInfoCorrector
 import com.musinsa.homework.components.brand.BrandInfoRegistrar
 import com.musinsa.homework.components.brand.BrandInfoRemover
@@ -47,7 +46,7 @@ class BrandController(
    * @return 브랜드 리스트
    */
   @GetMapping("/list")
-  fun getList(
+  fun getBrandList(
     @RequestParam(name = "pageNumber", required = false, defaultValue = "0") pageNumber: Int,
     @RequestParam(name = "pageSize", required = false, defaultValue = "10") pageSize: Int
   ): ResponseEntity<Page<BrandInfo>> {
@@ -63,7 +62,7 @@ class BrandController(
    * @throws BrandNotFoundException 브랜드 정보를 찾을 수 없을 경우
    */
   @GetMapping("/{brandId}")
-  fun getInfo(@PathVariable("brandId") brandId: String): BrandInfo {
+  fun getBrandInfo(@PathVariable("brandId") brandId: String): BrandInfo {
 
     return brandInformant.getBrandInfo(brandId)
   }
@@ -80,11 +79,11 @@ class BrandController(
    * @throws BrandNotFoundException 브랜드 정보를 찾을 수 없을 경우
    */
   @PatchMapping("/{brandId}")
-  fun correct(
+  fun correctBrandInfo(
     @PathVariable("brandId") brandId: String,
     @RequestBody @Valid request: BrandInfoCorrectRequest,
     bindingResult: BindingResult
-  ): ResponseEntity<BrandInfoResponse> {
+  ): ResponseEntity<BrandInfo> {
 
     if (bindingResult.hasErrors()) {
       throw BindException(bindingResult)
@@ -99,10 +98,7 @@ class BrandController(
     )
 
     return ResponseEntity.ok(
-      BrandInfoResponse(
-        changedBrandInfo.id,
-        changedBrandInfo.name,
-      )
+      changedBrandInfo
     )
   }
 
@@ -116,8 +112,8 @@ class BrandController(
    * @throws BindException 신규 등록 요청 객체의 유효성 검사 결과 오류를 발견했을 경우
    * @throws AlreadyUsedBrandNameException 브랜드명이 이미 사용중일 경우
    */
-  @PostMapping
-  fun register(
+  @PostMapping("/")
+  fun registerBrandInfo(
     @RequestBody @Valid request: BrandInfoRegisterRequest,
     bindingResult: BindingResult
   ): ResponseEntity<BrandInfo> {
@@ -148,7 +144,7 @@ class BrandController(
    * @throws BrandNotFoundException 브랜드 정보를 찾을 수 없을 경우
    */
   @DeleteMapping("/{brandId}")
-  fun remove(
+  fun removeBrandInfo(
     @PathVariable("brandId") brandId: String,
     @RequestBody @Valid request: BrandInfoRemoveRequest,
     bindingResult: BindingResult
@@ -165,7 +161,7 @@ class BrandController(
       )
     )
 
-    return ResponseEntity.accepted()
+    return ResponseEntity.ok()
       .body("")
   }
 }
