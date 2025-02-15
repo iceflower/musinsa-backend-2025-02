@@ -55,7 +55,7 @@ class BrandControllerTest {
   val objectMapper = ObjectMapper()
 
   @Nested
-  @DisplayName("[GET] /list 메소드는")
+  @DisplayName("[GET] /list API는")
   inner class DescribeOf_getBrandList_method {
 
     fun subject(pageNumber: Int?, pageSize: Int?): ResultActions {
@@ -105,7 +105,7 @@ class BrandControllerTest {
   }
 
   @Nested
-  @DisplayName("[GET] /{brandId} 메소드는")
+  @DisplayName("[GET] /{brandId} API는")
   inner class DescribeOf_getBrandInfo_method {
 
     fun subject(brandId: String): ResultActions {
@@ -162,7 +162,7 @@ class BrandControllerTest {
   }
 
   @Nested
-  @DisplayName("[PATCH] /{brandId} 메소드는")
+  @DisplayName("[PATCH] /{brandId} API는")
   inner class DescribeOf_correctBrandInfo_method {
     fun subject(brandId: String, request: BrandInfoCorrectRequest): ResultActions {
 
@@ -204,7 +204,7 @@ class BrandControllerTest {
     }
 
     @Nested
-    @DisplayName("존재하는 브랜드 ID에 대한, 유효하지 않은 요청 본문 데이터가 수정 요청으로 주어지면")
+    @DisplayName("존재하는 브랜드 ID에 대한, 데이터 포맷이 유효하지 않은 요청 본문 데이터가 수정 요청으로 주어지면")
     inner class ContextWith_exist_brandId_but_invalid_request_body {
 
       @CsvSource(
@@ -241,7 +241,7 @@ class BrandControllerTest {
     }
 
     @Nested
-    @DisplayName("존재하는 브랜드 ID에 대한, 유효한 요청 본문 데이터가 수정 요청으로 주어지면")
+    @DisplayName("존재하는 브랜드 ID에 대한, 데이터 포맷이 유효한 요청 본문 데이터가 수정 요청으로 주어지면")
     inner class ContextWith_exist_brandId_and_valid_request_body {
 
       @AfterEach
@@ -282,7 +282,7 @@ class BrandControllerTest {
   }
 
   @Nested
-  @DisplayName("[DELETE] /{brandId} 메소드는")
+  @DisplayName("[DELETE] /{brandId} API는")
   inner class DescribeOf_removeBrandInfo_method {
     fun subject(brandId: String, request: BrandInfoRemoveRequest): ResultActions {
 
@@ -423,7 +423,7 @@ class BrandControllerTest {
 
 
   @Nested
-  @DisplayName("[POST] / 메소드는")
+  @DisplayName("[POST] / API는")
   inner class DescribeOf_registerBrandInfo_method {
     fun subject(request: BrandInfoRegisterRequest): ResultActions {
 
@@ -439,7 +439,7 @@ class BrandControllerTest {
 
 
     @Nested
-    @DisplayName("유효하지 않은 요청 본문 데이터가 신규 둥록 요청으로 주어지면")
+    @DisplayName("데이터 포맷이 유효하지 않은 요청 본문 데이터가 신규 둥록 요청으로 주어지면")
     inner class ContextWith_exist_brandId_but_invalid_request_body {
 
       @CsvSource(
@@ -476,7 +476,7 @@ class BrandControllerTest {
     }
 
     @Nested
-    @DisplayName("존재하는 브랜드 ID에 대한, 유효한 요청 본문 데이터가 수정 요청으로 주어지면")
+    @DisplayName("존재하는 브랜드 ID에 대한, 데이터 포맷이 유효한 요청 본문 데이터가 수정 요청으로 주어지면")
     inner class ContextWith_exist_brandId_and_valid_request_body {
 
       @AfterEach
@@ -509,4 +509,3 @@ class BrandControllerTest {
     }
   }
 }
-

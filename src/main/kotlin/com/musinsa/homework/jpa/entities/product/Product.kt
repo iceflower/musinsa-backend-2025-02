@@ -49,7 +49,7 @@ class Product() : AuditEntity() {
   var price: Long = 0
 
   @ManyToOne(
-    fetch = FetchType.LAZY,
+    fetch = FetchType.EAGER,
     targetEntity = Brand::class
   )
   @JoinColumn(
@@ -60,7 +60,7 @@ class Product() : AuditEntity() {
   lateinit var brand: Brand
 
   @ManyToOne(
-    fetch = FetchType.LAZY,
+    fetch = FetchType.EAGER,
     targetEntity = Category::class,
   )
   @JoinColumn(
