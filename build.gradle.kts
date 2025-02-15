@@ -22,13 +22,11 @@ repositories {
 extra.apply {
   set("testcontainers-version", "1.20.4")
   set("hypersistence-utils-hibernate-version", "3.9.1")
-  set("coroutines-core-version", "1.10.1")
   set("redisson-spring-boot-starter-version", "3.44.0")
   set("kotlin-jdsl-version", "3.5.4")
   set("springdoc-openapi-starter-webmvc-ui-version", "2.8.4")
 }
 
-val coroutineCoreVersion = rootProject.extra["coroutines-core-version"]
 val testcontainersVersion = rootProject.extra["testcontainers-version"]
 val redissonSpringBootStarterVersion = rootProject.extra["redisson-spring-boot-starter-version"]
 val hypersistenceUtilsHibernateVersion = rootProject.extra["hypersistence-utils-hibernate-version"]
@@ -42,18 +40,13 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-web")
   implementation("org.springframework.boot:spring-boot-starter-aop")
   implementation("org.redisson:redisson-spring-boot-starter:$redissonSpringBootStarterVersion")
-
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
   implementation("org.jetbrains.kotlin:kotlin-reflect")
   implementation("io.hypersistence:hypersistence-utils-hibernate-63:$hypersistenceUtilsHibernateVersion")
-  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineCoreVersion")
-
   implementation("com.linecorp.kotlin-jdsl:jpql-dsl:$kotlinJdslVersion")
   implementation("com.linecorp.kotlin-jdsl:jpql-render:$kotlinJdslVersion")
   implementation("com.linecorp.kotlin-jdsl:spring-data-jpa-support:$kotlinJdslVersion")
-
   implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiSterterWebmvcUiVersion")
-
 
   runtimeOnly("com.h2database:h2")
 

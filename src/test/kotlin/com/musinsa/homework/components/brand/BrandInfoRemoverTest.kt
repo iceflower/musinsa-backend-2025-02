@@ -59,7 +59,7 @@ class BrandInfoRemoverTest {
       fun it_throws_exception() {
         // 'A 브랜드에 대한 삭제요청'
         val exception = assertThrows<BrandHasProductsException> { subject(BrandInfoRemoveCommand("0JS975W4891XQ", "test")) }
-        assertEquals("이미 사용중인 브랜드명입니다.", exception.message!!)
+        assertEquals("삭제하려는 브랜드의 상품이 존재합니다.", exception.message!!)
       }
     }
 

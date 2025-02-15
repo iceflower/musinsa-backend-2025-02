@@ -13,17 +13,17 @@
 
 ### 구현 완료시 가산점 부여가 가능한 범위
 
-| 구현기능                            | 완성 | 비고                                                                                   |
-|:--------------------------------|:--:|:-------------------------------------------------------------------------------------|
-| Unit test 및 Integration test 작성 | O  | 유닛테스트와 통합테스트를 구분하여 작성하진 않았습니다.<br/> 다만, api 엔드포인트의 테스트코드가 실질적인 통합테스트 코드 역할을 맡고 있습니다. |
-| Frontend 페이지 구현                 | X  | 남은 시간이 촉박하여 이 범위까진 구현하지 못하였습니다.                                                      |
+| 구현기능                            | 완성 | 비고                                                                                                               |
+|:--------------------------------|:--:|:-----------------------------------------------------------------------------------------------------------------|
+| Unit test 및 Integration test 작성 | O  | 유닛테스트 케이스 갯수 :  **131개**  <p/> 유닛테스트/통합테스트 코드를 분리하지 않은 상태이나, api 엔드포인트의 유닛테스트 코드가 실질적인 통합테스트 코드 역할을 맡고 있습니다.     |
+| Frontend 페이지 구현                 | X  | 남은 시간이 촉박하여 이 범위까진 구현하지 못하였습니다.                                                                                  |
 
 ## 과제 구현시 사용한 기술
 
 - JVM 버전 : **21**
 - 프로그래밍 언어 : **코틀린(v2.1.10)**
 - 데이터베이스 : **H2, Redis**
-  - 서버 작동에 필요한 중요한 데이터는 H2에 적재하엿으며, Redis는 분산락 기능을 구현하기 위해 사용하였습니다.
+  - 서버 작동에 필요한 중요한 데이터는 H2에 적재하였으며, Redis는 분산락 기능을 구현하기 위해 사용하였습니다.
 - 웹 프레임워크 : **스프링 부트 (v3.4.2, WebMvc)**
   - **가상스레드 활성화 여부 : true**
 - 데이터베이스 영속성 관리
@@ -73,9 +73,9 @@
   - [제품 정보 조회 / 수정 / 삭제 API 명세서](http://localhost:8080/swagger-ui/index.html?urls.primaryName=%EC%A0%9C%ED%92%88+%EC%A0%95%EB%B3%B4+API)
   - [가격 관련 (카테고리별 최저가 브랜드 등) API 명세서](http://localhost:8080/swagger-ui/index.html?urls.primaryName=%EA%B0%80%EA%B2%A9%EC%A0%95%EB%B3%B4+API)
 
-## 데이터베이스 설계 구조
+## 데이터베이스 스키마 구조
 
-- 이번 과제를 수행하며 설계한 데이터베이스 설계는 다음과 같습니다.
+- 이번 과제를 수행하며 설계한 데이터베이스 스키마 구조는 다음과 같습니다.
 
 ### ERD
 
@@ -118,38 +118,38 @@ erDiagram
 
 #### brand 테이블
 
-| 칼럼명        |     자료형     | Nullable |    | 비고        |
-|:-----------|:-----------:|:--------:|:--:|:----------|
-| brand_id   | VARCHAR(13) | NOT NULL | PK | 브랜드 정보 ID |
-| brand_name | VARCHAR(70) | NOT NULL |    | 브랜드명      |
-| created_at |  TIMESTAMP  | NOT NULL |    | 최초생성시각    |
-| created_by | VARCHAR(70) | NOT NULL |    | 최초생성시각    |
-| updated_at |  TIMESTAMP  | NOT NULL |    | 최초생성시각    |
-| updated_by | VARCHAR(70) | NOT NULL |    | 최초생성시각    |
+| 칼럼명        |     자료형     | Nullable |    | 비고                |
+|:-----------|:-----------:|:--------:|:--:|:------------------|
+| brand_id   | VARCHAR(13) | NOT NULL | PK | 브랜드 정보 ID (TSID)  |
+| brand_name | VARCHAR(70) | NOT NULL |    | 브랜드명              |
+| created_at |  TIMESTAMP  | NOT NULL |    | 최초생성시각            |
+| created_by | VARCHAR(70) | NOT NULL |    | 최초생성시각            |
+| updated_at |  TIMESTAMP  | NOT NULL |    | 최초생성시각            |
+| updated_by | VARCHAR(70) | NOT NULL |    | 최초생성시각            |
 
 #### category 테이블
 
-| 칼럼명           |     자료형      | Nullable |    | 비고         |
-|:--------------|:------------:|:--------:|:--:|:-----------|
-| category_id   | VARCHAR(13)  | NOT NULL | PK | 카테고리 정보 ID |
-| category_name | VARCHAR(70)  | NOT NULL |    | 카테고리명      |
-| created_at    |  TIMESTAMP   | NOT NULL |    | 최초생성시각     |
-| created_by    | VARCHAR(100) | NOT NULL |    | 최초생성시각     |
-| updated_at    |  TIMESTAMP   | NOT NULL |    | 최초생성시각     |
-| updated_by    | VARCHAR(100) | NOT NULL |    | 최초생성시각     |
+| 칼럼명           |     자료형      | Nullable |    | 비고                 |
+|:--------------|:------------:|:--------:|:--:|:-------------------|
+| category_id   | VARCHAR(13)  | NOT NULL | PK | 카테고리 정보 ID (TSID)  |
+| category_name | VARCHAR(70)  | NOT NULL |    | 카테고리명              |
+| created_at    |  TIMESTAMP   | NOT NULL |    | 최초생성시각             |
+| created_by    | VARCHAR(100) | NOT NULL |    | 최초생성시각             |
+| updated_at    |  TIMESTAMP   | NOT NULL |    | 최초생성시각             |
+| updated_by    | VARCHAR(100) | NOT NULL |    | 최초생성시각             |
 
 #### product 테이블
 
-| 칼럼명          |     자료형      | Nullable |    | 비고         |
-|:-------------|:------------:|:--------:|:--:|:-----------|
-| product_id   | VARCHAR(13)  | NOT NULL | PK | 제품 정보 ID   |
-| brand_id     | VARCHAR(13)  | NOT NULL | FK | 브랜드 정보 ID  |
-| category_id  | VARCHAR(13)  | NOT NULL | FK | 카테고리 정보 ID |
-| product_name | VARCHAR(70)  | NOT NULL |    | 제품명        |
-| created_at   |  TIMESTAMP   | NOT NULL |    | 최초생성시각     |
-| created_by   | VARCHAR(100) | NOT NULL |    | 최초생성시각     |
-| updated_at   |  TIMESTAMP   | NOT NULL |    | 최초생성시각     |
-| updated_by   | VARCHAR(100) | NOT NULL |    | 최초생성시각     |
+| 칼럼명          |     자료형      | Nullable |    | 비고                 |
+|:-------------|:------------:|:--------:|:--:|:-------------------|
+| product_id   | VARCHAR(13)  | NOT NULL | PK | 제품 정보 ID (TSID)    |
+| brand_id     | VARCHAR(13)  | NOT NULL | FK | 브랜드 정보 ID (TSID)   |
+| category_id  | VARCHAR(13)  | NOT NULL | FK | 카테고리 정보 ID (TSID)  |
+| product_name | VARCHAR(70)  | NOT NULL |    | 제품명                |
+| created_at   |  TIMESTAMP   | NOT NULL |    | 최초생성시각             |
+| created_by   | VARCHAR(100) | NOT NULL |    | 최초생성시각             |
+| updated_at   |  TIMESTAMP   | NOT NULL |    | 최초생성시각             |
+| updated_by   | VARCHAR(100) | NOT NULL |    | 최초생성시각             |
 
 ##### 인덱스
 - **idx_product_on_category_and_price**
