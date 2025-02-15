@@ -1,0 +1,23 @@
+version: "3.9"  # optional since v1.27.0
+
+services:
+  server:
+    image: musinsa-server:latest
+    ports:
+      - "8080:8080"
+    environment:
+      USE_PROFILE: prod
+    networks:
+      - service-network
+    depends_on:
+      - redis
+  redis:
+    image: redis:7.4.2-alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - service-network
+    command: redis-server --port 6379
+
+networks:
+  service-network: {}
