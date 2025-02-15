@@ -23,7 +23,7 @@ class BrandInfoCorrector(
   fun correct(command: BrandInfoCorrectCommand): BrandInfo {
 
     if (!brandRepository.existsById(command.brandId)) {
-      throw BrandNotFoundException("브랜드 정보를 찾을 수 없습니다.")
+      throw BrandNotFoundException()
     }
 
     val storedEntity = brandRepository.findById(command.brandId).get()

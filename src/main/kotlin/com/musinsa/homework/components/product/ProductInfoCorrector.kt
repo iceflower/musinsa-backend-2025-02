@@ -31,13 +31,13 @@ class ProductInfoCorrector(
   fun correct(command: ProductInfoCorrectCommand): ProductInfo {
 
     val brand = brandRepository.findById(command.brandId)
-      .orElseThrow { throw BrandNotFoundException("브랜드 정보를 찾을 수 없습니다.") }
+      .orElseThrow { throw BrandNotFoundException() }
 
     val category = categoryRepository.findById(command.categoryId)
-      .orElseThrow { throw CategoryNotFoundException("카테고리 정보를 찾을 수 없습니다.") }
+      .orElseThrow { throw CategoryNotFoundException() }
 
     val storedProduct = productRepository.findById(command.productId)
-      .orElseThrow { throw ProductNotFoundException("제품 정보를 찾을 수 없습니다.") }
+      .orElseThrow { throw ProductNotFoundException() }
 
     storedProduct.editProductBrand(brand, command.requester)
     storedProduct.editProductCategory(category, command.requester)

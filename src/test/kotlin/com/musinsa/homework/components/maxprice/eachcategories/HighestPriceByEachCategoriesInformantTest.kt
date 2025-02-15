@@ -3,6 +3,7 @@ package com.musinsa.homework.components.maxprice.eachcategories
 import com.musinsa.homework.components.exception.CategoryNotFoundException
 import com.musinsa.homework.jpa.entities.category.CategoryRepository
 import com.musinsa.homework.testUtil.ComponentUsingDataJpaTest
+import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -40,7 +41,8 @@ class HighestPriceByEachCategoriesInformantTest {
       @Test
       @DisplayName("CategoryNotFoundException 예외를 던진다")
       fun it_throws_exception() {
-        assertThrows<CategoryNotFoundException> { subject("NONEXIST") }
+        val exception = assertThrows<CategoryNotFoundException> { subject("NONEXIST") }
+        assertEquals("카테고리 정보를 찾을 수 없습니다.", exception.message!!)
       }
     }
 

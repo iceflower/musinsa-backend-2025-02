@@ -25,11 +25,11 @@ class BrandInfoRemover(
   fun remove(command: BrandInfoRemoveCommand) {
 
     if (!brandRepository.existsById(command.brandId)) {
-      throw BrandNotFoundException("브랜드 정보를 찾을 수 없습니다.")
+      throw BrandNotFoundException()
     }
 
     if (productRepository.existsByBrandId(command.brandId)) {
-      throw BrandHasProductsException("삭제하려는 브랜드의 상품이 존재합니다.")
+      throw BrandHasProductsException()
     }
 
     brandRepository.deleteById(command.brandId)

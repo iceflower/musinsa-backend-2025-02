@@ -39,6 +39,6 @@ class ProductInformant(
    */
   @RedisDistributedLock(key = "get-product-info")
   fun getProductInfo(productId: String) = productRepository.findById(productId)
-    .orElseThrow { throw ProductNotFoundException("제품 정보를 찾을 수 없습니다.") }
+    .orElseThrow { throw ProductNotFoundException() }
     .toVo()
 }

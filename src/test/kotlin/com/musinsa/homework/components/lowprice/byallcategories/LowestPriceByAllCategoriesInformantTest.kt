@@ -44,6 +44,10 @@ class LowestPriceByAllCategoriesInformantTest {
         assertTrue { result.totalPrice > 0 }
         assertTrue { result.detailed.isNotEmpty() }
 
+        result.detailed.groupingBy { it.categoryName }
+          .eachCount()
+          .forEach { assertTrue { it.value >= 1 } }
+
         // 원래대로라면 8개가 나와야 한다.
         // 다만, 테스트 데이터 중 최저가 제품이 2개인 카테고리가 존재함. (스니커즈)
         // 그래서 9개가 리턴된 것이므로 참고바람.

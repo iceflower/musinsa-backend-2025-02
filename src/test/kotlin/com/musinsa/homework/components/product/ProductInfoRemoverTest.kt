@@ -4,6 +4,7 @@ import com.musinsa.homework.components.exception.ProductNotFoundException
 import com.musinsa.homework.components.product.command.ProductInfoRemoveCommand
 import com.musinsa.homework.jpa.entities.product.ProductRepository
 import com.musinsa.homework.testUtil.ComponentUsingDataJpaTest
+import kotlin.test.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -43,7 +44,8 @@ class ProductInfoRemoverTest {
           "NONEXIST",
           "test"
         )
-        assertThrows<ProductNotFoundException> { subject(command) }
+        val exception = assertThrows<ProductNotFoundException> { subject(command) }
+        assertEquals("제품 정보를 찾을 수 없습니다.", exception.message!!)
       }
     }
 

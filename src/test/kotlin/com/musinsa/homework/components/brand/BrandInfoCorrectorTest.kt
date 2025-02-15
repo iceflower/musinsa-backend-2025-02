@@ -42,7 +42,8 @@ class BrandInfoCorrectorTest {
       @Test
       @DisplayName("BrandNotFoundException 예외를 던진다")
       fun it_throws_exception() {
-        assertThrows<BrandNotFoundException> { subject(BrandInfoCorrectCommand("NONEXIST-ID", "Z", "test")) }
+        val exception = assertThrows<BrandNotFoundException> { subject(BrandInfoCorrectCommand("NONEXIST-ID", "Z", "test")) }
+        assertEquals("브랜드 정보를 찾을 수 없습니다.", exception.message!!)
       }
     }
 

@@ -63,9 +63,9 @@ class ProductInfoCorrectorTest {
           10000,
           "test"
         )
-        assertThrows<ProductNotFoundException> { subject(command) }
+        val exception = assertThrows<ProductNotFoundException> { subject(command) }
+        assertEquals("제품 정보를 찾을 수 없습니다.", exception.message!!)
       }
-
     }
 
     @Nested
@@ -83,7 +83,8 @@ class ProductInfoCorrectorTest {
           10000,
           "test"
         )
-        assertThrows<BrandNotFoundException> { subject(command) }
+        val exception = assertThrows<BrandNotFoundException> { subject(command) }
+        assertEquals("브랜드 정보를 찾을 수 없습니다.", exception.message!!)
       }
     }
 
@@ -103,7 +104,8 @@ class ProductInfoCorrectorTest {
           "test"
         )
 
-        assertThrows<CategoryNotFoundException> { subject(command) }
+        val exception = assertThrows<CategoryNotFoundException> { subject(command) }
+        assertEquals("카테고리 정보를 찾을 수 없습니다.", exception.message!!)
       }
     }
 
