@@ -1,9 +1,9 @@
 package com.musinsa.homework.components.product
 
-import com.linecorp.kotlinjdsl.support.spring.data.jpa.autoconfigure.KotlinJdslAutoConfiguration
 import com.musinsa.homework.components.exception.ProductNotFoundException
 import com.musinsa.homework.components.product.command.ProductInfoListQueryCommand
 import com.musinsa.homework.jpa.entities.product.ProductRepository
+import com.musinsa.homework.testUtil.ComponentUsingDataJpaTest
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 import org.junit.jupiter.api.BeforeEach
@@ -15,19 +15,10 @@ import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
-import org.springframework.context.annotation.Import
 import org.springframework.data.domain.PageRequest
-import org.springframework.test.context.ActiveProfiles
-import org.springframework.test.context.TestPropertySource
 
 
-@ActiveProfiles("test")
-@TestPropertySource(locations = ["classpath:application-test.yml"])
-@DataJpaTest
-@Import(KotlinJdslAutoConfiguration::class)
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@ComponentUsingDataJpaTest
 @DisplayName("ProductInfoRemover 클래스의")
 class ProductInformantTest {
 

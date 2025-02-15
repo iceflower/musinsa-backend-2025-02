@@ -1,6 +1,5 @@
 package com.musinsa.homework.components.product
 
-import com.linecorp.kotlinjdsl.support.spring.data.jpa.autoconfigure.KotlinJdslAutoConfiguration
 import com.musinsa.homework.components.exception.BrandNotFoundException
 import com.musinsa.homework.components.exception.CategoryNotFoundException
 import com.musinsa.homework.components.exception.ProductNotFoundException
@@ -8,6 +7,7 @@ import com.musinsa.homework.components.product.command.ProductInfoCorrectCommand
 import com.musinsa.homework.jpa.entities.brand.BrandRepository
 import com.musinsa.homework.jpa.entities.category.CategoryRepository
 import com.musinsa.homework.jpa.entities.product.ProductRepository
+import com.musinsa.homework.testUtil.ComponentUsingDataJpaTest
 import kotlin.test.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
@@ -17,18 +17,9 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
-import org.springframework.context.annotation.Import
-import org.springframework.test.context.ActiveProfiles
-import org.springframework.test.context.TestPropertySource
 
 
-@ActiveProfiles("test")
-@TestPropertySource(locations = ["classpath:application-test.yml"])
-@DataJpaTest
-@Import(KotlinJdslAutoConfiguration::class)
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@ComponentUsingDataJpaTest
 @DisplayName("ProductInfoCorrector 클래스의")
 class ProductInfoCorrectorTest {
 
