@@ -8,7 +8,7 @@ import com.musinsa.homework.components.brand.BrandInfoCorrector
 import com.musinsa.homework.components.brand.BrandInfoRegistrar
 import com.musinsa.homework.components.brand.command.BrandInfoCorrectCommand
 import com.musinsa.homework.components.brand.command.BrandInfoRegisterCommand
-import com.musinsa.homework.testUtil.RedisTestContainer
+import com.musinsa.homework.testUtil.ApiEndpointTest
 import kotlin.test.Test
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.DisplayName
@@ -17,13 +17,8 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 import org.junit.jupiter.params.provider.ValueSource
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
-import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.jdbc.core.JdbcTemplate
-import org.springframework.test.context.ActiveProfiles
-import org.springframework.test.context.TestPropertySource
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.ResultActions
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
@@ -31,12 +26,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 
 
-@ActiveProfiles("test")
-@TestPropertySource(locations = ["classpath:application-test.yml"])
-@RedisTestContainer
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@SpringBootTest
-@AutoConfigureMockMvc
+@ApiEndpointTest
 @DisplayName("브랜드 정보 관련 API (/v1/api/brand) 증")
 class BrandControllerTest {
 
