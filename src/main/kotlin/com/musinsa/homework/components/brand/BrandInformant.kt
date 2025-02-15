@@ -36,6 +36,6 @@ class BrandInformant(
    */
   @RedisDistributedLock(key = "get-brand-info", readOnly = true)
   fun getBrandInfo(brandId: String) = brandRepository.findById(brandId)
-    .orElseThrow { throw BrandNotFoundException("브랜드 정보를 찾을 수 없습니다.") }
+    .orElseThrow { throw BrandNotFoundException() }
     .toVo()
 }

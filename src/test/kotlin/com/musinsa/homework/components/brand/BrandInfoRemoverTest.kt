@@ -7,6 +7,7 @@ import com.musinsa.homework.components.exception.BrandNotFoundException
 import com.musinsa.homework.jpa.entities.brand.BrandRepository
 import com.musinsa.homework.jpa.entities.product.ProductRepository
 import com.musinsa.homework.testUtil.ComponentUsingDataJpaTest
+import kotlin.test.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -45,7 +46,8 @@ class BrandInfoRemoverTest {
       @Test
       @DisplayName("BrandNotFoundException 예외를 던진다")
       fun it_throws_exception() {
-        assertThrows<BrandNotFoundException> { subject(BrandInfoRemoveCommand("NONEXIST-ID", "test")) }
+        val exception = assertThrows<BrandNotFoundException> { subject(BrandInfoRemoveCommand("NONEXIST-ID", "test")) }
+        assertEquals("브랜드 정보를 찾을 수 없습니다.", exception.message!!)
       }
     }
 
@@ -56,7 +58,8 @@ class BrandInfoRemoverTest {
       @DisplayName("BrandHasProductsException 예외를 던진다")
       fun it_throws_exception() {
         // 'A 브랜드에 대한 삭제요청'
-        assertThrows<BrandHasProductsException> { subject(BrandInfoRemoveCommand("0JS975W4891XQ", "test")) }
+        val exception = assertThrows<BrandHasProductsException> { subject(BrandInfoRemoveCommand("0JS975W4891XQ", "test")) }
+        assertEquals("이미 사용중인 브랜드명입니다.", exception.message!!)
       }
     }
 

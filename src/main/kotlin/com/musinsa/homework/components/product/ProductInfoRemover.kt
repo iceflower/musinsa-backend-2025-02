@@ -21,7 +21,7 @@ class ProductInfoRemover(
   fun remove(command: ProductInfoRemoveCommand) {
 
     if (!productRepository.existsById(command.productId)) {
-      throw ProductNotFoundException("제품 정보를 찾을 수 없습니다.")
+      throw ProductNotFoundException()
     }
     productRepository.deleteById(command.productId)
   }

@@ -44,6 +44,11 @@ class LowestPriceBrandInformantTest {
         val result = assertDoesNotThrow { subject() }
         assertTrue { result.lowestPrice.products.isNotEmpty() }
         assertTrue { result.lowestPrice.brandName.isNotEmpty() }
+
+        result.lowestPrice.products.groupingBy { it.categoryName }
+          .eachCount()
+          .forEach { assertTrue { it.value >= 1 } }
+
         assertTrue { result.lowestPrice.totalPrice > 0 }
       }
     }

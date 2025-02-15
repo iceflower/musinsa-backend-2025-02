@@ -41,7 +41,8 @@ class BrandInfoRegistrarTest {
       @Test
       @DisplayName("AlreadyUsedBrandNameException 예외를 던진다.")
       fun it_throws_exception() {
-        assertThrows<AlreadyUsedBrandNameException> { subject(BrandInfoRegisterCommand("A", "test")) }
+        val exception = assertThrows<AlreadyUsedBrandNameException> { subject(BrandInfoRegisterCommand("A", "test")) }
+        assertEquals("이미 사용중인 브랜드명입니다.", exception.message!!)
       }
 
     }

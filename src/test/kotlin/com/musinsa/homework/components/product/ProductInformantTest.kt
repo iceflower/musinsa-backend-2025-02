@@ -4,6 +4,7 @@ import com.musinsa.homework.components.exception.ProductNotFoundException
 import com.musinsa.homework.components.product.command.ProductInfoListQueryCommand
 import com.musinsa.homework.jpa.entities.product.ProductRepository
 import com.musinsa.homework.testUtil.ComponentUsingDataJpaTest
+import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 import org.junit.jupiter.api.BeforeEach
@@ -96,7 +97,8 @@ class ProductInformantTest {
       @Test
       @DisplayName("ProductNotFoundException 예외를 던진다")
       fun it_throws_exception() {
-        assertThrows<ProductNotFoundException> { subject("NONEXIST") }
+        val exception = assertThrows<ProductNotFoundException> { subject("NONEXIST") }
+        assertEquals("제품 정보를 찾을 수 없습니다.", exception.message!!)
       }
     }
 
@@ -104,11 +106,12 @@ class ProductInformantTest {
     @DisplayName("존재하는 제품 ID가 주어지면")
     inner class ContextWith_exist_product_id {
       @Test
-      @DisplayName("ProductNotFoundException 예외를 던진다")
+      @DisplayName("제품 정보를 조회한 후 그 결과를 돌려준다")
       fun it_throws_exception() {
         val result = assertDoesNotThrow { subject("0JS9VDTS492Z8") }
 
         assertTrue { result.productId.isNotEmpty() }
+        assertEquals("0JS9VDTS492Z8", result.productId)
         assertTrue { result.productName.isNotEmpty() }
         assertTrue { result.categoryId.isNotEmpty() }
         assertTrue { result.categoryName.isNotEmpty() }

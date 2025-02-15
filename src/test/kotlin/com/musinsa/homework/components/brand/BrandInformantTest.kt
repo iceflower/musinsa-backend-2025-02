@@ -62,7 +62,8 @@ class BrandInformantTest {
       @Test
       @DisplayName("BrandNotFoundException 예외를 던진다")
       fun it_throws_exceptions() {
-        assertThrows<BrandNotFoundException> { subject("NONEXIST") }
+        val exception = assertThrows<BrandNotFoundException> { subject("NONEXIST") }
+        assertEquals("브랜드 정보를 찾을 수 없습니다.", exception.message!!)
       }
     }
 

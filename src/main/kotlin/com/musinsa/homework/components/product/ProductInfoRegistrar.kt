@@ -30,10 +30,10 @@ class ProductInfoRegistrar(
   fun register(command: ProductInfoRegisterCommand): ProductInfo {
 
     val brand = brandRepository.findById(command.brandId)
-      .orElseThrow { throw BrandNotFoundException("브랜드 정보를 찾을 수 없습니다.") }
+      .orElseThrow { throw BrandNotFoundException() }
 
     val category = categoryRepository.findById(command.categoryId)
-      .orElseThrow { throw CategoryNotFoundException("카테고리 정보를 찾을 수 없습니다.") }
+      .orElseThrow { throw CategoryNotFoundException() }
 
     val newEntity = Product.create(
       command.productName,
