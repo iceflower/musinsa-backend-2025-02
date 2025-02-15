@@ -47,7 +47,7 @@ class UnprocessableEntityExceptionHandler {
     return ResponseEntity.unprocessableEntity()
       .body(
         ErrorResponse(
-          "BRAND_INFO_NOT_FOUND",
+          "CATEGORY_INFO_NOT_FOUND",
           e.message!!
         )
       )
@@ -61,13 +61,13 @@ class UnprocessableEntityExceptionHandler {
    */
   @ExceptionHandler(ProductNotFoundException::class)
   fun handleProductNotFoundException(
-    e: CategoryNotFoundException
+    e: ProductNotFoundException
   ): ResponseEntity<ErrorResponse> {
 
     return ResponseEntity.unprocessableEntity()
       .body(
         ErrorResponse(
-          "BRAND_INFO_NOT_FOUND",
+          "PRODUCT_INFO_NOT_FOUND",
           e.message!!
         )
       )
