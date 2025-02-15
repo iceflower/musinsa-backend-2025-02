@@ -23,7 +23,7 @@ class HighestPriceByEachCategoriesInformant(
   fun getHighestPriceByEachCategory(categoryName: String): List<PriceByCategory> {
 
     if (!categoryRepository.existsByName(categoryName)) {
-      throw CategoryNotFoundException("카테고리를 찾을 수 없습니다.")
+      throw CategoryNotFoundException("카테고리 정보를 찾을 수 없습니다.")
     }
 
     return categoryRepository.highestPriceByEachCategory(categoryName)
