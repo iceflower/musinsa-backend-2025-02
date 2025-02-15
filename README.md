@@ -1,15 +1,15 @@
-# 김영근 - 무신사 백엔드 과제전형
+# 김영근 - 무신사 백엔드 과제
 
 ## 주어진 과제 범위 및 완성 여부
 
 ### 필수 구현 범위
 
-| 구현기능                                                               | 완성  | 비고|
-|:-------------------------------------------------------------------|:---:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 카테고리 별 최저가격 브랜드와 상품 가격, 총액을 조회하는 API                               |  O  | [가격 관련 API 명세서](http://localhost:8080/swagger-ui/index.html?urls.primaryName=%EA%B0%80%EA%B2%A9%EC%A0%95%EB%B3%B4+API)|
-| 단일 브랜드로 모든 카테고리 상품을 구매할 때 최저가격에 판매하는 브랜드와 카테고리의 상품가격, 총액을 조회하는 API |  O  | [가격 관련 API 명세서](http://localhost:8080/swagger-ui/index.html?urls.primaryName=%EA%B0%80%EA%B2%A9%EC%A0%95%EB%B3%B4+API)|
-| 카테고리 이름으로 최저, 최고 가격 브랜드와 상품 가격을 조회하는 API                           |  O  | [가격 관련 API 명세서](http://localhost:8080/swagger-ui/index.html?urls.primaryName=%EA%B0%80%EA%B2%A9%EC%A0%95%EB%B3%B4+API)|
-| 브랜드 및 상품을 추가 / 업데이트 / 삭제하는 API                                     |  O  | [브랜드 정보 관련 API 명세서](http://localhost:8080/swagger-ui/index.html?urls.primaryName=%EB%B8%8C%EB%9E%9C%EB%93%9C+%EC%A0%95%EB%B3%B4+API) <br/> [제품 정보 관련 API 명세서](http://localhost:8080/swagger-ui/index.html?urls.primaryName=%EC%A0%9C%ED%92%88+%EC%A0%95%EB%B3%B4+API)|
+| 구현기능                                                               | 완성 | 비고                                                                                                                                                                                                                                                                    |
+|:-------------------------------------------------------------------|:--:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 카테고리 별 최저가격 브랜드와 상품 가격, 총액을 조회하는 API                               | O  | [가격 관련 API 명세서](http://localhost:8080/swagger-ui/index.html?urls.primaryName=%EA%B0%80%EA%B2%A9%EC%A0%95%EB%B3%B4+API)                                                                                                                                                |
+| 단일 브랜드로 모든 카테고리 상품을 구매할 때 최저가격에 판매하는 브랜드와 카테고리의 상품가격, 총액을 조회하는 API | O  | [가격 관련 API 명세서](http://localhost:8080/swagger-ui/index.html?urls.primaryName=%EA%B0%80%EA%B2%A9%EC%A0%95%EB%B3%B4+API)                                                                                                                                                |
+| 카테고리 이름으로 최저, 최고 가격 브랜드와 상품 가격을 조회하는 API                           | O  | [가격 관련 API 명세서](http://localhost:8080/swagger-ui/index.html?urls.primaryName=%EA%B0%80%EA%B2%A9%EC%A0%95%EB%B3%B4+API)                                                                                                                                                |
+| 브랜드 및 상품을 추가 / 업데이트 / 삭제하는 API                                     | O  | [브랜드 정보 관련 API 명세서](http://localhost:8080/swagger-ui/index.html?urls.primaryName=%EB%B8%8C%EB%9E%9C%EB%93%9C+%EC%A0%95%EB%B3%B4+API) <br/> [제품 정보 관련 API 명세서](http://localhost:8080/swagger-ui/index.html?urls.primaryName=%EC%A0%9C%ED%92%88+%EC%A0%95%EB%B3%B4+API) |
 
 ### 구현 완료시 가산점 부여가 가능한 범위
 
@@ -50,18 +50,18 @@
    docker build -t musinsa-server .
     ```    
 3. Gradle 빌드가 완료되면, `docker-compose` 명령어를 통해 백엔드 서버를 작동시킬 수 있습니다.
-  - 이때, 분산 트랜잭션 기능을 위해 레디스도 함께 작동시킵니다.
+
+- 이때, 분산 트랜잭션 기능을 위해 레디스도 함께 작동시킵니다.
+
    ```shell
    docker-compose up -d
    ```
+
 4. 백엔드 서버가 정상적으로 작동했는지 확인합니다.
 
 - http://localhost:8080/actuator/health 에 접근시, 아래와 같은 응답을 받았다면 정상 작동 중입니다.
-
    ```json
-   {
-  "status": "UP"
-}
+   {"status": "UP"}
    ```
 
 ## API 문서 확인 및 API 작동 테스트 방법
@@ -76,6 +76,8 @@
 ## 데이터베이스 설계 구조
 
 - 이번 과제를 수행하며 설계한 데이터베이스 설계는 다음과 같습니다.
+
+### ERD
 
 ```mermaid
 erDiagram
@@ -112,3 +114,49 @@ erDiagram
     VARCHAR(100) updated_by "최종수정시각"
   }
 ```
+### 테이블 명세
+
+#### brand 테이블
+
+| 칼럼명        |     자료형     | Nullable |    | 비고        |
+|:-----------|:-----------:|:--------:|:--:|:----------|
+| brand_id   | VARCHAR(13) | NOT NULL | PK | 브랜드 정보 ID |
+| brand_name | VARCHAR(70) | NOT NULL |    | 브랜드명      |
+| created_at |  TIMESTAMP  | NOT NULL |    | 최초생성시각    |
+| created_by | VARCHAR(70) | NOT NULL |    | 최초생성시각    |
+| updated_at |  TIMESTAMP  | NOT NULL |    | 최초생성시각    |
+| updated_by | VARCHAR(70) | NOT NULL |    | 최초생성시각    |
+
+#### category 테이블
+
+| 칼럼명           |     자료형      | Nullable |    | 비고         |
+|:--------------|:------------:|:--------:|:--:|:-----------|
+| category_id   | VARCHAR(13)  | NOT NULL | PK | 카테고리 정보 ID |
+| category_name | VARCHAR(70)  | NOT NULL |    | 카테고리명      |
+| created_at    |  TIMESTAMP   | NOT NULL |    | 최초생성시각     |
+| created_by    | VARCHAR(100) | NOT NULL |    | 최초생성시각     |
+| updated_at    |  TIMESTAMP   | NOT NULL |    | 최초생성시각     |
+| updated_by    | VARCHAR(100) | NOT NULL |    | 최초생성시각     |
+
+#### product 테이블
+
+| 칼럼명          |     자료형      | Nullable |    | 비고         |
+|:-------------|:------------:|:--------:|:--:|:-----------|
+| product_id   | VARCHAR(13)  | NOT NULL | PK | 제품 정보 ID   |
+| brand_id     | VARCHAR(13)  | NOT NULL | FK | 브랜드 정보 ID  |
+| category_id  | VARCHAR(13)  | NOT NULL | FK | 카테고리 정보 ID |
+| product_name | VARCHAR(70)  | NOT NULL |    | 제품명        |
+| created_at   |  TIMESTAMP   | NOT NULL |    | 최초생성시각     |
+| created_by   | VARCHAR(100) | NOT NULL |    | 최초생성시각     |
+| updated_at   |  TIMESTAMP   | NOT NULL |    | 최초생성시각     |
+| updated_by   | VARCHAR(100) | NOT NULL |    | 최초생성시각     |
+
+##### 인덱스
+- **idx_product_on_category_and_price**
+  - **category_id** 칼럼 기준 오름차순
+  - **product_price** 칼럼 기준 오름차순
+  
+- **idx_product_on_brand_and_category_and_price**
+  - **brand_id** 칼럼 기준 오름차순
+  - **category_id** 칼럼 기준 오름차순
+  - **product_price** 칼럼 기준 오름차순
